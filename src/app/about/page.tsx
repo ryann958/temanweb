@@ -1,104 +1,120 @@
-"use client";
+import Link from "next/link";
+import { ArrowRight, Eye, Handshake, HeartHandshake, Lightbulb, ShieldCheck, Target } from "lucide-react";
 
-import { Compass, Target, Code, Cpu, Award, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
+const principles = [
+  {
+    icon: <Handshake className="h-5 w-5" />,
+    title: "Komunikasi terbuka",
+    description: "Tujuan, ruang lingkup, biaya, dan jadwal dibahas bersama sebelum pekerjaan dimulai.",
+  },
+  {
+    icon: <ShieldCheck className="h-5 w-5" />,
+    title: "Informasi yang jujur",
+    description: "Kami membedakan konsep demo dari proyek klien dan menjelaskan hal yang termasuk maupun di luar paket.",
+  },
+  {
+    icon: <HeartHandshake className="h-5 w-5" />,
+    title: "Sesuai kebutuhan",
+    description: "Solusi dan fitur dipilih berdasarkan kebutuhan nyata, bukan sekadar menambah kompleksitas.",
+  },
+];
 
 export default function AboutPage() {
-  const values = [
-    { icon: <Compass className="h-6 w-6 text-blue-600" />, title: "Visi Kami", desc: "Menjadi mitra terpercaya dalam mendigitalisasi bisnis di Indonesia dengan standard global, estetik, dan performa tinggi." },
-    { icon: <Target className="h-6 w-6 text-blue-600" />, title: "Misi Kami", desc: "Membangun produk digital berkualitas tinggi yang memberikan konversi nyata dan mendongkrak omset pemasaran bagi mitra kami." },
-    { icon: <Heart className="h-6 w-6 text-blue-600" />, title: "Nilai Kami", desc: "Kejujuran dalam penawaran harga, ketepatan waktu rilis, kerapian struktur kode, dan ketanggapan bantuan teknis." }
-  ];
-
-  const technologies = [
-    { name: "Next.js & React", type: "Frontend Framework" },
-    { name: "TypeScript", type: "Programming Language" },
-    { name: "Tailwind CSS", type: "CSS Styling Utility" },
-    { name: "Framer Motion", type: "Animation Library" },
-    { name: "Supabase & Postgres", type: "Database & Backend Service" },
-    { name: "Vercel", type: "Deployment & CDN" }
-  ];
-
-  const bounceCardVariants = {
-    offscreen: {
-      y: 40,
-      opacity: 0,
-      scale: 0.95
-    },
-    onscreen: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        bounce: 0.35,
-        duration: 0.8
-      }
-    }
-  };
-
   return (
-    <div className="relative min-h-screen py-16 px-6 lg:px-8 max-w-7xl mx-auto z-10">
-      <div className="absolute top-20 left-10 w-[400px] h-[400px] glow-bg opacity-15 pointer-events-none z-0"></div>
+    <div className="page-shell">
+      <section className="section-space">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Tentang TemanWeb</p>
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-5xl">
+              Membuat langkah digital terasa lebih dekat.
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-slate-600">
+              TemanWeb adalah brand layanan digital yang sedang bertumbuh. Kami membantu UMKM, sekolah, dan organisasi membangun website profesional yang informatif, mudah diakses, dan disusun sesuai kebutuhan.
+            </p>
+            <p className="mt-4 leading-7 text-slate-600">
+              TemanWeb hadir karena membuat website seharusnya tidak terasa rumit atau penuh istilah teknis. Setiap proyek dimulai dengan mendengarkan tujuan Anda, lalu menyusun pilihan solusi dan estimasi yang dapat dipahami sebelum ada keputusan untuk melanjutkan.
+            </p>
+            <Link href="/contact" className="button-primary mt-8 px-5 py-3">
+              Ceritakan kebutuhan Anda <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
 
-      {/* Hero / Header */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
-        <div className="lg:col-span-7 space-y-6">
-          <span className="text-sm font-bold text-blue-600 uppercase tracking-widest">Tentang Kami</span>
-          <h1 className="text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">Kisah TemanWeb</h1>
-          <p className="text-slate-650 text-base md:text-lg leading-relaxed">
-            TemanWeb didirikan sekitar 1 tahun yang lalu atas dasar hasrat besar terhadap teknologi web yang bersih, cepat, dan bernilai jual tinggi. Berawal dari sekumpulan pengembang independen di Kepulauan Meranti yang sering membantu UMKM lokal mendigitalisasi usaha mereka secara sukarela, kami melihat banyak pemilik bisnis memiliki produk hebat namun kesulitan mempresentasikannya secara profesional di media online.
-          </p>
-          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-            Melihat kebutuhan pasar yang sangat tinggi akan website berkualitas dengan harga bersahabat, kami memutuskan untuk resmi mendirikan TemanWeb. Kami memadukan keahlian desain antarmuka modern (UI/UX) dengan kehandalan backend Next.js & Supabase untuk melahirkan website berkecepatan kilat yang mengubah pengunjung biasa menjadi pelanggan setia. Kini, kami berfokus membantu ratusan bisnis di seluruh Indonesia bertumbuh secara digital dengan sistem yang tangguh, responsif, dan aman.
-          </p>
-        </div>
-        <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-8 space-y-6 text-center shadow-sm">
-          <div className="text-4xl font-extrabold text-slate-900">1+ Tahun</div>
-          <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Membantu Bisnis Go Digital</div>
-          <hr className="border-slate-200" />
-          <div className="text-4xl font-extrabold text-slate-900">50+</div>
-          <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Proyek Sukses Diluncurkan</div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        {values.map((val, idx) => (
-          <motion.div 
-            key={idx} 
-            className="glass-card rounded-xl p-8 border border-slate-200 text-center space-y-4"
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={bounceCardVariants}
-          >
-            <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-2">
-              {val.icon}
+          <div className="rounded-3xl border border-blue-100 bg-blue-50/70 p-7 sm:p-9">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-blue-700 shadow-sm">
+              <Lightbulb className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">{val.title}</h3>
-            <p className="text-sm text-slate-600 leading-relaxed">{val.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8 lg:p-12">
-        <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Teknologi Modern Yang Kami Gunakan</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {technologies.map((tech, idx) => (
-            <motion.div 
-              key={idx} 
-              className="glass-card rounded-xl p-5 border border-slate-200 text-center space-y-2"
-              initial="offscreen"
-              whileInView="onscreen"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={bounceCardVariants}
-            >
-              <div className="text-sm font-bold text-slate-900 leading-tight">{tech.name}</div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">{tech.type}</div>
-            </motion.div>
-          ))}
+            <h2 className="mt-6 text-xl font-bold text-slate-950">Mengapa TemanWeb ada?</h2>
+            <p className="mt-3 leading-7 text-slate-600">
+              Banyak usaha dan lembaga punya layanan yang bermanfaat, tetapi belum memiliki ruang digital yang rapi untuk menjelaskannya. Kami ingin membantu membuat informasi mereka lebih mudah ditemukan dan dipahami.
+            </p>
+            <div className="mt-7 border-t border-blue-200 pt-6">
+              <p className="text-sm font-bold text-slate-800">Posisi kami</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Solusi Website Profesional untuk Bisnis dan Pendidikan Indonesia.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section className="border-y border-slate-200 bg-slate-50/80">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Komitmen kami</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950">Kerja yang jelas, dari awal hingga peluncuran.</h2>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {principles.map((principle) => (
+              <article key={principle.title} className="rounded-2xl border border-slate-200 bg-white p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+                  {principle.icon}
+                </div>
+                <h3 className="mt-5 font-bold text-slate-950">{principle.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{principle.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-2">
+          <div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+              <Target className="h-5 w-5" />
+            </div>
+            <h2 className="mt-5 text-2xl font-bold text-slate-950">Cara kami bekerja</h2>
+            <ol className="mt-6 space-y-4">
+              {[
+                "Konsultasi untuk memahami tujuan, pengguna, dan kebutuhan website.",
+                "Perencanaan ruang lingkup, penawaran, dan jadwal untuk disepakati.",
+                "Desain dan pengembangan dengan pembaruan selama proses berjalan.",
+                "Review, revisi sesuai kesepakatan, lalu persiapan peluncuran.",
+              ].map((step, index) => (
+                <li key={step} className="flex gap-4 text-sm leading-6 text-slate-600">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-700">
+                    {index + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="rounded-2xl border border-slate-200 p-7 sm:p-8">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+              <Eye className="h-5 w-5" />
+            </div>
+            <h2 className="mt-5 text-2xl font-bold text-slate-950">Visi kami</h2>
+            <p className="mt-4 leading-7 text-slate-600">
+              Membantu bisnis dan organisasi Indonesia menjangkau lebih banyak orang melalui informasi digital yang mudah diakses dan dikelola.
+            </p>
+            <p className="mt-4 leading-7 text-slate-600">
+              Sebagai brand yang baru tumbuh, TemanWeb memilih membangun kepercayaan melalui pekerjaan yang jelas, demo yang diberi label apa adanya, serta komunikasi yang terbuka—bukan klaim angka atau pengalaman yang belum dapat dibuktikan.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff; /* White background */
-  --foreground: #0a2540; /* Navy / Dark Slate text */
-  --primary: #0055ff;    /* Vibrant Blue */
-  --accent: #e0f2fe;     /* Light Blue / Cyan accent */
+  --background: #ffffff;
+  --foreground: #10243b;
+  --primary: #155eef;
+  --accent: #eaf2ff;
 }
 
 @theme {
@@ -12,13 +12,38 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-accent: var(--accent);
-  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.page-shell {
+  min-height: 100%;
+}
+
+.section-space {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.eyebrow {
+  color: #155eef;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Offset for sticky header */
+  scroll-padding-top: 96px;
   background: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .section-space {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }
 
 body {
@@ -26,6 +51,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 /* Custom Scrollbar for Light Theme */
@@ -74,9 +100,9 @@ body {
 }
 
 .glass-card:hover {
-  border-color: rgba(0, 85, 255, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 85, 255, 0.06), inset 0 0 12px rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
+  border-color: rgba(21, 94, 239, 0.22);
+  box-shadow: 0 14px 36px rgba(15, 35, 65, 0.07);
+  transform: translateY(-3px);
 }
 
 /* Special Glow Button */
@@ -146,4 +172,75 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
   will-change: opacity;
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.button-primary {
+  background: #155eef;
+  color: #fff;
+}
+
+.button-primary:hover {
+  background: #1049c7;
+  transform: translateY(-1px);
+}
+
+.button-secondary {
+  border: 1px solid #d5deea;
+  background: #fff;
+  color: #10243b;
+}
+
+.button-secondary:hover {
+  border-color: #9db8ec;
+  background: #f7faff;
+}
+
+.field-label {
+  display: block;
+  color: #334155;
+  font-size: 0.8125rem;
+  font-weight: 650;
+}
+
+.field-input {
+  width: 100%;
+  border: 1px solid #d8e0eb;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 0.75rem 0.875rem;
+  color: #10243b;
+  font: inherit;
+  font-size: 0.875rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field-input::placeholder {
+  color: #94a3b8;
+}
+
+.field-input:focus-visible {
+  outline: 2px solid transparent;
+  border-color: #155eef;
+  box-shadow: 0 0 0 3px rgba(21, 94, 239, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

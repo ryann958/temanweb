@@ -8,10 +8,15 @@ CREATE TABLE IF NOT EXISTS projects (
     description TEXT,
     client VARCHAR(255),
     technology VARCHAR(100)[],
+    features TEXT[],
     image_url TEXT,
     live_url TEXT,
+    project_type VARCHAR(50) NOT NULL DEFAULT 'Demo Concept',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS features TEXT[];
+ALTER TABLE projects ADD COLUMN IF NOT EXISTS project_type VARCHAR(50) NOT NULL DEFAULT 'Demo Concept';
 
 -- Services Table
 CREATE TABLE IF NOT EXISTS services (
@@ -49,18 +54,19 @@ CREATE TABLE IF NOT EXISTS faqs (
 
 -- Insert dummy data for Services
 INSERT INTO services (title, description, price, features) VALUES
-('Starter (Landing Page)', 'Halaman promosi satu halaman, cocok untuk produk tunggal atau startup awal.', 'Rp 250.000', ARRAY['1 Halaman Responsif', 'Desain UI Kustom', 'Integrasi Chat WhatsApp', 'Free Hosting & Domain (.com) 1 Thn', 'Basic SEO Setup']),
-('Business (Company Profile)', 'Website profil bisnis lengkap dengan halaman layanan, kontak, dan blog untuk melebarkan pasar.', 'Rp 750.000', ARRAY['Hingga 10 Halaman', 'Desain Premium & Animasi', 'Admin Panel (Kelola Konten)', 'Free Hosting & Domain Premium 1 Thn', 'Advance SEO & Analytics']),
-('Premium (E-Commerce / Custom)', 'Sistem dashboard, autentikasi user, kelola inventori, dan pemesanan online kustom.', 'Rp 2.000.000+', ARRAY['Halaman Tak Terbatas', 'Dashboard Admin & User', 'Sistem Pembayaran / Autentikasi', 'Desain UI/UX Eksklusif', 'Dukungan Maintenance 6 Bulan']);
+('Starter (Landing Page)', 'Halaman promosi satu halaman, cocok untuk produk tunggal atau layanan.', 'Rp 359.000', ARRAY['1 Halaman Responsif', 'Desain UI Kustom', 'Integrasi Chat WhatsApp', 'Hosting & Domain .my.id selama 1 Tahun', 'SEO Dasar', 'Maksimal 2 Kali Revisi']),
+('Business (Company Profile)', 'Website profil bisnis hingga lima halaman dengan informasi layanan dan kontak.', 'Rp 1.099.000', ARRAY['Hingga 5 Halaman', 'Desain UI/UX Kustom', 'CMS Blog sesuai ruang lingkup', 'Hosting & Domain Premium selama 1 Tahun', 'SEO On-Page', 'Dukungan Pemeliharaan 3 Bulan', 'Maksimal 4 Kali Revisi']),
+('Premium (E-Commerce / Custom)', 'Website dengan fitur, database, dashboard, atau toko online yang direncanakan sesuai kebutuhan.', 'Rp 2.000.000+', ARRAY['Jumlah Halaman dan Fitur sesuai Ruang Lingkup', 'Autentikasi sesuai kebutuhan', 'Integrasi Pembayaran sesuai Penawaran', 'Dashboard Kelola Data sesuai kebutuhan', 'Dukungan Pemeliharaan 6 Bulan', 'Batas Revisi disepakati dalam Penawaran']);
 
 -- Insert dummy data for Projects
-INSERT INTO projects (title, category, description, client, technology, image_url, live_url) VALUES
-('Nexus Corporate', 'Company', 'Website perusahaan teknologi tinggi dengan animasi transisi yang sangat halus dan layout minimalis.', 'Nexus Tech', ARRAY['Next.js', 'Tailwind CSS', 'Framer Motion'], 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600', '#'),
-('Rdev Shop', 'Dashboard', 'Platform belanja online dengan integrasi pembayaran otomatis dan desain elegan.', 'Rdev Shop Inc', ARRAY['React', 'Supabase', 'Tailwind CSS'], 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=600', '#'),
-('EduGrade School', 'School', 'Sistem portal web sekolah interaktif untuk data guru, murid, dan pengumuman kegiatan sekolah.', 'EduGrade Academic', ARRAY['Next.js', 'PostgreSQL'], 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600', '#');
+INSERT INTO projects (title, category, description, client, technology, features, image_url, live_url, project_type) VALUES
+('Nexus Corporate', 'Company', 'Konsep website company profile untuk menunjukkan struktur informasi layanan, profil, dan kanal kontak. Bukan proyek klien.', 'Demo concept', ARRAY['Next.js', 'Tailwind CSS', 'Framer Motion'], ARRAY['Profil perusahaan', 'Informasi layanan', 'Kontak bisnis'], '/hero-light-bg.png', NULL, 'Demo Concept'),
+('Rdev Shop', 'E-Commerce', 'Konsep katalog produk dengan penjelajahan kategori dan alur pemesanan. Demo ini bukan proyek klien.', 'Demo concept', ARRAY['React', 'Supabase', 'Tailwind CSS'], ARRAY['Katalog produk', 'Kategori barang', 'Alur pemesanan'], '/hero-light-bg.png', NULL, 'Demo Concept'),
+('EduGrade School', 'School', 'Konsep portal sekolah untuk menyajikan profil, program pendidikan, pengumuman, dan informasi pendaftaran. Bukan proyek klien.', 'Demo concept', ARRAY['Next.js', 'PostgreSQL'], ARRAY['Profil sekolah', 'Pengumuman', 'Informasi pendaftaran'], '/hero-light-bg.png', NULL, 'Demo Concept'),
+('Katalog UMKM Lokal', 'UMKM', 'Konsep halaman usaha untuk mengenalkan cerita, pilihan produk, dan cara memesan.', 'Demo concept', ARRAY['Next.js', 'Tailwind CSS'], ARRAY['Profil usaha', 'Katalog produk', 'Tautan pemesanan'], '/hero-light-bg.png', NULL, 'Demo Concept');
 
 -- Insert dummy data for FAQs
 INSERT INTO faqs (question, answer, category) VALUES
-('Berapa lama waktu pengerjaan website?', 'Untuk Landing Page berkisar antara 3-7 hari, sedangkan Company Profile biasa memakan waktu 7-14 hari kerja tergantung dari kelengkapan konten dan tingkat kerumitan desain.', 'Timeline'),
-('Apakah harga sudah termasuk domain dan hosting?', 'Ya, semua paket yang kami sediakan sudah termasuk lisensi domain (.com / .id) dan hosting cloud premium selama 1 tahun pertama.', 'Harga'),
-('Bagaimana jika saya ingin menambahkan fitur kustom di kemudian hari?', 'Website kami dibangun menggunakan Next.js dan Supabase yang sangat modular (scalable), sehingga memudahkan penambahan fitur baru di masa mendatang tanpa perlu membuat ulang dari awal.', 'Lainnya');
+('Berapa biaya pembuatan website?', 'Harga awal mulai dari Rp 359.000 untuk landing page, Rp 1.099.000 untuk company profile, dan Rp 2.000.000+ untuk kebutuhan custom. Harga akhir mengikuti ruang lingkup yang disepakati.', 'Harga'),
+('Apakah harga sudah termasuk domain dan hosting?', 'Paket Starter mencakup domain .my.id dan hosting selama 1 tahun. Paket Business mencakup domain premium dan hosting selama 1 tahun; pilihan domain dikonfirmasi terlebih dahulu.', 'Harga'),
+('Berapa lama proses pengerjaan?', 'Jadwal pengerjaan bergantung pada ruang lingkup dan kesiapan materi. Estimasi jadwal akan disampaikan bersama penawaran sebelum pekerjaan dimulai.', 'Timeline');

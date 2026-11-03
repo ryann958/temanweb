@@ -1,78 +1,90 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { supabase, mockBlogs } from '@/lib/supabase';
-import { Calendar, Tag, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, CalendarDays, Tag } from "lucide-react";
+import { mockBlogs, supabase } from "@/lib/supabase";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
+
+type BlogPost = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  image_url: string;
+};
 
 export default function BlogPage() {
-  const [blogs, setBlogs] = useState(mockBlogs);
-
+  const [blogs, setBlogs] = useState<BlogPost[]>(mockBlogs);
   useEffect(() => {
     async function fetchBlogs() {
       if (!supabase) return;
-      try {
-        const { data } = await supabase.from('blogs').select('*');
-        if (data && data.length > 0) {
-          setBlogs(data);
-        }
-      } catch (err) {
-        console.error("Error fetching blogs:", err);
+      const { data, error } = await supabase.from("blogs").select("*").order("date", { ascending: false });
+      if (error) {
+        console.error("Gagal memuat artikel:", error);
+        return;
       }
+      if (data?.length) setBlogs(data as BlogPost[]);
     }
-    fetchBlogs();
+
+    void fetchBlogs().catch((error: unknown) => console.error("Gagal memuat artikel:", error));
   }, []);
 
   return (
-    <div className="relative min-h-screen py-16 px-6 lg:px-8 max-w-7xl mx-auto z-10">
-      <div className="absolute top-20 right-10 w-[400px] h-[400px] glow-bg opacity-10 pointer-events-none z-0"></div>
+    <div className="page-shell">
+      <section className="section-space">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow">Catatan TemanWeb</p>
+            <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-5xl">
+              Ide praktis tentang website dan dunia digital.
+            </h1>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Bacaan ringkas seputar website, SEO, dan langkah membangun kehadiran digital untuk usaha dan organisasi.
+            </p>
+          </div>
 
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <span className="text-sm font-bold text-blue-600 uppercase tracking-widest">Artikel & Berita</span>
-        <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight">Kanal Informasi & Edukasi</h1>
-        <p className="text-slate-655 font-medium">
-          Dapatkan tips dan panduan seputar optimasi website, digital marketing, dan teknologi terkini.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {blogs.map((blog) => (
-          <div 
-            key={blog.id} 
-            className="glass-card rounded-2xl overflow-hidden p-0 border border-slate-200 hover:border-slate-350 transition-all flex flex-col md:flex-row"
-          >
-            <div 
-              className="h-48 md:h-auto md:w-2/5 bg-cover bg-center shrink-0" 
-              style={{ backgroundImage: `url(${blog.image_url})` }}
-            ></div>
-            <div className="p-6 md:p-8 flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-4 text-xs text-slate-500">
-                  <span className="flex items-center">
-                    <Calendar className="mr-1.5 h-3.5 w-3.5 text-blue-600" />
-                    {blog.date}
-                  </span>
-                  <span className="flex items-center">
-                    <Tag className="mr-1.5 h-3.5 w-3.5 text-blue-600" />
+          <div className="mt-11 grid gap-6 md:grid-cols-2">
+            {blogs.map((blog) => (
+              <article key={blog.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white sm:flex">
+                <div className="relative aspect-[16/9] overflow-hidden bg-blue-50 sm:aspect-auto sm:min-h-[250px] sm:w-[42%] sm:shrink-0">
+                  <Image
+                    src="/hero-light-bg.png"
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, 42vw"
+                    className="object-cover"
+                  />
+                  <span className="absolute bottom-4 left-4 rounded-lg border border-white/80 bg-white/90 px-3 py-2 text-xs font-bold text-blue-800">
                     {blog.category}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 leading-tight hover:text-blue-600 transition-colors">
-                  <a href="#">{blog.title}</a>
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">
-                  {blog.description}
-                </p>
-              </div>
-              <div>
-                <a href="#" className="inline-flex items-center text-sm font-bold text-blue-650 hover:text-blue-750">
-                  Baca Selengkapnya <ArrowRight className="ml-1.5 h-4 w-4" />
-                </a>
-              </div>
-            </div>
+                <div className="flex flex-col p-5 sm:p-6">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500">
+                    <span className="inline-flex items-center gap-1.5">
+                      <CalendarDays className="h-3.5 w-3.5 text-blue-700" /> {blog.date}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Tag className="h-3.5 w-3.5 text-blue-700" /> {blog.category}
+                    </span>
+                  </div>
+                  <h2 className="mt-4 text-xl font-bold leading-snug text-slate-950">{blog.title}</h2>
+                  <p className="mt-3 flex-grow text-sm leading-6 text-slate-600">{blog.description}</p>
+                  <a
+                    href={createWhatsAppUrl(`diskusi topik: ${blog.title}`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900"
+                  >
+                    Tanyakan topik ini <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

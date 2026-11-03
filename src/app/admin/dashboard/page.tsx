@@ -3,47 +3,34 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
-  mockProjects, mockServices, mockFaqs, mockBlogs 
+  mockProjects, mockServices
 } from '@/lib/supabase';
 import { 
-  FolderGit2, MessageSquare, Database, ListCollapse, 
+  FolderGit2, MessageSquare, Database,
   Trash2, Plus, LogOut, CheckCircle, Clock 
 } from 'lucide-react';
+
+type Message = {
+  id: string;
+  name: string;
+  email: string;
+  whatsapp: string;
+  business_name: string;
+  budget: string;
+  description: string;
+  timeline: string;
+  status: string;
+  created_at: string;
+};
 
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'messages' | 'portfolio' | 'services'>('messages');
 
-  // CMS States
-  const [messages, setMessages] = useState([
-    {
-      id: '1',
-      name: 'Rudi Hermawan',
-      email: 'rudi@company.com',
-      whatsapp: '081298765432',
-      business_name: 'Hermawan Coffee & Roastery',
-      budget: 'Rp 350 Ribu - Rp 1 Juta',
-      description: 'Saya butuh landing page satu halaman responsif untuk promo kedai kopi baru saya.',
-      timeline: '1-2 Minggu',
-      status: 'New',
-      created_at: '2026-06-28 12:30'
-    },
-    {
-      id: '2',
-      name: 'Siti Rahma',
-      email: 'siti@school.sch.id',
-      whatsapp: '085712345678',
-      business_name: 'SDN Mekarjaya 1',
-      budget: 'Rp 1 Juta - Rp 3 Juta',
-      description: 'Website profil sekolah untuk membagikan pengumuman dan materi kelas digital.',
-      timeline: '2-4 Minggu',
-      status: 'Resolved',
-      created_at: '2026-06-27 10:15'
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const [projectsList, setProjectsList] = useState(mockProjects);
-  const [servicesList, setServicesList] = useState(mockServices);
+  const servicesList = mockServices;
 
   // Form States for adding new items
   const [newProject, setNewProject] = useState({
@@ -52,7 +39,7 @@ export default function AdminDashboardPage() {
     description: '',
     client: '',
     technology: '',
-    image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600'
+    image_url: '/hero-light-bg.png'
   });
 
   // Verify Session
@@ -91,10 +78,12 @@ export default function AdminDashboardPage() {
       title: newProject.title,
       category: newProject.category,
       description: newProject.description,
-      client: newProject.client || 'Klien Baru',
+      project_type: 'Demo Concept',
+      features: [],
+      client: 'Demo concept',
       technology: newProject.technology.split(',').map(t => t.trim()).filter(Boolean),
       image_url: newProject.image_url,
-      live_url: '#'
+      live_url: ''
     };
 
     // Save project
@@ -108,7 +97,7 @@ export default function AdminDashboardPage() {
       description: '',
       client: '',
       technology: '',
-      image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600'
+      image_url: '/hero-light-bg.png'
     });
 
     alert('Portofolio baru berhasil ditambahkan secara lokal!');
@@ -244,7 +233,7 @@ export default function AdminDashboardPage() {
                     required
                     value={newProject.title}
                     onChange={(e) => setNewProject({ ...newProject, title: e.target.value })}
-                    placeholder="Contoh: Nexus Corporate"
+                    placeholder="Contoh: Konsep Kedai Kopi"
                     className="w-full bg-white border border-slate-250 rounded-lg px-4 py-2.5 text-slate-850 text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                   />
                 </div>
