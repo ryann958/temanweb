@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -127,6 +128,9 @@ export default function Home() {
   const [projects, setProjects] = useState<HomeProject[]>(mockProjects);
   const packages = mockServices;
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const reduceMotion = useReducedMotion();
+  const animateMotion = reduceMotion !== true;
+  const heroTitleWords = "Website untuk usaha, sekolah, dan organisasi.".split(" ");
 
   useEffect(() => {
     async function fetchHomeData() {
@@ -158,33 +162,79 @@ export default function Home() {
         />
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:min-h-[640px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:py-16">
           <div className="relative z-10 max-w-2xl">
-            <p className="text-sm font-bold text-blue-800">
+            <motion.p
+              data-motion="reveal"
+              initial={animateMotion ? { opacity: 0, x: -18 } : false}
+              animate={animateMotion ? { opacity: 1, x: 0 } : undefined}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+              className="text-sm font-bold text-blue-800"
+            >
               TemanWeb · Jasa pembuatan website
-            </p>
+            </motion.p>
             <h1 className="mt-6 text-[2.55rem] font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.55rem]">
-              Website untuk usaha, sekolah, dan organisasi.
+              <span className="sr-only">Website untuk usaha, sekolah, dan organisasi.</span>
+              <span aria-hidden="true" className="hero-typewriter">
+                {heroTitleWords.map((word, wordIndex) => {
+                  const characterOffset = heroTitleWords
+                    .slice(0, wordIndex)
+                    .reduce((total, previousWord) => total + previousWord.length + 1, 0);
+
+                  return (
+                    <span key={`${word}-${wordIndex}`} className="inline-block whitespace-nowrap">
+                      {Array.from(word).map((character, characterIndex) => (
+                        <span
+                          key={characterIndex}
+                          className="hero-typewriter__letter inline-block"
+                          style={{ animationDelay: `${(characterOffset + characterIndex) * 32}ms` }}
+                        >
+                          {character}
+                        </span>
+                      ))}
+                      {wordIndex < heroTitleWords.length - 1 ? " " : ""}
+                    </span>
+                  );
+                })}
+              </span>
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+            <motion.p
+              data-motion="reveal"
+              initial={animateMotion ? { opacity: 0, y: 18 } : false}
+              animate={animateMotion ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.5, delay: 0.9, ease: "easeOut" }}
+              className="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8"
+            >
               Susun profil, layanan, katalog, dan kontak dalam satu website yang mudah dipahami dan dibuka dari ponsel.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            </motion.p>
+            <motion.div
+              data-motion="reveal"
+              initial={animateMotion ? { opacity: 0, y: 18 } : false}
+              animate={animateMotion ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.5, delay: 1.15, ease: "easeOut" }}
+              className="mt-8 flex flex-col gap-3 sm:flex-row"
+            >
               <Link href="/contact" className="button-primary justify-center px-6 py-3.5">
                 Konsultasi Gratis <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/portfolio" className="button-secondary justify-center px-6 py-3.5">
                 Lihat Portofolio
               </Link>
-            </div>
+            </motion.div>
             <p className="mt-4 text-xs leading-5 text-slate-600">
               Konsultasi awal gratis, tanpa kewajiban untuk memesan.
             </p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[570px] lg:ml-auto">
+          <motion.div
+            data-motion="reveal"
+            initial={animateMotion ? { opacity: 0, x: 36, scale: 0.97 } : false}
+            animate={animateMotion ? { opacity: 1, x: 0, scale: 1 } : undefined}
+            transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.2 }}
+            className="relative mx-auto w-full max-w-[570px] lg:ml-auto"
+          >
             <div className="relative rounded-[1.5rem] border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/10 sm:rounded-[2rem] sm:p-3">
               <WebsitePreview title="Konsep website bisnis" category="Company" />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -215,7 +265,15 @@ export default function Home() {
           </div>
           <div className="border-t border-slate-200">
             {serviceCards.map((service, index) => (
-              <article key={service.title} className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[2.5rem_1fr_auto] sm:items-start sm:gap-5">
+              <motion.article
+                key={service.title}
+                data-motion="reveal"
+                initial={animateMotion ? { opacity: 0, x: 28 } : false}
+                whileInView={animateMotion ? { opacity: 1, x: 0 } : undefined}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ type: "spring", stiffness: 180, damping: 22, delay: index * 0.07 }}
+                className="grid gap-3 border-b border-slate-200 py-5 sm:grid-cols-[2.5rem_1fr_auto] sm:items-start sm:gap-5"
+              >
                 <span className="pt-1 text-sm font-bold text-slate-500">0{index + 1}</span>
                 <div>
                   <h3 className="text-lg font-bold text-slate-950">{service.title}</h3>
@@ -230,7 +288,7 @@ export default function Home() {
                 >
                   Diskusikan <ArrowUpRight className="h-4 w-4" />
                 </a>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>
@@ -251,11 +309,19 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-9 grid gap-5 md:grid-cols-3">
-            {projects.slice(0, 3).map((project) => {
+            {projects.slice(0, 3).map((project, index) => {
               const projectType = project.project_type?.toLowerCase();
               const isDemo = !projectType || !["client", "client project"].includes(projectType);
               return (
-                <article key={project.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <motion.article
+                  key={project.id}
+                  data-motion="reveal"
+                  initial={animateMotion ? { opacity: 0, y: 34, scale: 0.94 } : false}
+                  whileInView={animateMotion ? { opacity: 1, y: 0, scale: 1 } : undefined}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ type: "spring", stiffness: 240, damping: 16, delay: index * 0.12 }}
+                  className="overflow-hidden rounded-2xl border border-slate-200 bg-white"
+                >
                   <div className="relative bg-slate-50 p-3">
                     <WebsitePreview title={project.title} category={project.category} compact />
                     <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-slate-800 shadow-sm">
@@ -267,7 +333,7 @@ export default function Home() {
                     <h3 className="mt-2 text-lg font-bold text-slate-950">{project.title}</h3>
                     <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{project.description}</p>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>

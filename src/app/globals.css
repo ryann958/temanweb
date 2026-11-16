@@ -24,6 +24,21 @@
   padding-bottom: 3.5rem;
 }
 
+.hero-typewriter__letter {
+  animation: hero-type-in 180ms ease-out both;
+}
+
+@keyframes hero-type-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.12em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .eyebrow {
   color: #155eef;
   font-size: 0.75rem;
@@ -241,5 +256,16 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .hero-typewriter__letter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-motion="reveal"] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
