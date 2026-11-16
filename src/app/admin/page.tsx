@@ -30,10 +30,8 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="relative min-h-[80vh] flex items-center justify-center px-6 grid-bg">
-      <div className="absolute top-10 left-10 w-[300px] h-[300px] glow-bg opacity-10 pointer-events-none z-0"></div>
-
-      <div className="w-full max-w-md glass-card rounded-2xl p-8 border border-slate-200 shadow-xl relative z-10">
+    <div className="flex min-h-[80vh] items-center justify-center bg-slate-50 px-6">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="text-center mb-8 space-y-2">
           <h1 className="text-2xl font-extrabold text-slate-900">Admin Portal</h1>
           <p className="text-xs text-slate-500">Masuk untuk mengelola portofolio, pesan masuk, dan konten CMS.</p>
@@ -52,7 +50,7 @@ export default function AdminLoginPage() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="admin"
-                className="w-full bg-white border border-slate-250 rounded-lg pl-10 pr-4 py-2.5 text-slate-850 text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors"
+                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-850 transition-colors focus:border-blue-700 focus:ring-2 focus:ring-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
               />
             </div>
           </div>
@@ -69,7 +67,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-white border border-slate-250 rounded-lg pl-10 pr-4 py-2.5 text-slate-850 text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors"
+                className="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-850 transition-colors focus:border-blue-700 focus:ring-2 focus:ring-blue-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
               />
             </div>
           </div>
@@ -90,7 +88,7 @@ export default function AdminLoginPage() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-[10px] text-slate-400">
+        <div className="mt-6 text-center text-[10px] text-slate-600">
           Gunakan kredensial pengujian:<br />
           Username: <span className="font-mono text-slate-600 font-bold">admin</span> | Password: <span className="font-mono text-slate-600 font-bold">password123</span>
         </div>

@@ -120,6 +120,6 @@ export const mockBlogs = [
     description: 'Domain adalah identitas digital Anda. Temukan tips memilih nama yang memorable dan profesional.',
     category: 'Website',
     date: '2026-06-20',
-    image_url: '/hero-light-bg.png'
+    image_url: '/mockup-screen.jpg'
   }
 ];

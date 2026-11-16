@@ -110,7 +110,7 @@ export default function AboutPage() {
               Membantu bisnis dan organisasi Indonesia menjangkau lebih banyak orang melalui informasi digital yang mudah diakses dan dikelola.
             </p>
             <p className="mt-4 leading-7 text-slate-600">
-              Sebagai brand yang baru tumbuh, TemanWeb memilih membangun kepercayaan melalui pekerjaan yang jelas, demo yang diberi label apa adanya, serta komunikasi yang terbuka—bukan klaim angka atau pengalaman yang belum dapat dibuktikan.
+              Sebagai brand yang baru tumbuh, TemanWeb memilih membangun kepercayaan melalui pekerjaan yang jelas, demo yang diberi label apa adanya, serta komunikasi terbuka. Kami tidak memakai klaim angka atau pengalaman yang belum dapat dibuktikan.
             </p>
           </div>
         </div>
